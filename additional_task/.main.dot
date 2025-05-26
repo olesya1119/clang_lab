@@ -1,0 +1,5 @@
+digraph "CFG for 'main' function" {
+	label="CFG for 'main' function";
+
+	Node0x5646de907470 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870" fontname="Courier",label="{0:\l|  %1 = alloca i32, align 4\l  %2 = alloca i32, align 4\l  %3 = alloca i32, align 4\l  %4 = alloca double, align 8\l  store i32 0, ptr %1, align 4\l  store i32 10, ptr %2, align 4\l  store i32 20, ptr %3, align 4\l  %5 = load i32, ptr %2, align 4\l  %6 = load i32, ptr %3, align 4\l  %7 = call double @average(i32 noundef %5, i32 noundef %6)\l  store double %7, ptr %4, align 8\l  %8 = load double, ptr %4, align 8\l  %9 = call i32 (ptr, ...) @printf(ptr noundef @.str, double noundef %8)\l  ret i32 0\l}"];
+}
