@@ -351,13 +351,38 @@ diff average_O0.ll average_O2.ll
 
 ### 5. Граф потока управления программы
 
+До оптимизации:
+
 ```bash
-opt -passes=dot-cfg -disable-output average_O2.ll
+opt -passes=dot-cfg -disable-output average_O0.ll
 dot -Tpng .main.dot -o cfg_main.png
 dot -Tpng .average.dot -o cfg_average.png
 ```
 ![cfg_main](https://github.com/user-attachments/assets/a19a8a36-c203-4f1e-a0a0-7c393cccaadd)
 ![cfg_average](https://github.com/user-attachments/assets/30c66b71-7f2e-4e66-b8f9-e38902c98e9d)
+
+
+После оптимизации:
+
+```bash
+opt -passes=dot-cfg -disable-output average_O2.ll
+dot -Tpng .main.dot -o cfg_main.png
+dot -Tpng .average.dot -o cfg_average.png
+```
+![cfg_main](https://github.com/user-attachments/assets/dbff40b9-42b1-4cd7-b6c7-53986326f761)
+
+- Функция average(10, 20) заранее вычислена как 15.0.
+- Вызова average нет вообще — просто printf(..., 15.0).
+- Никаких переменных x, y, result — потому что они не нужны после оптимизации.
+
+
+![cfg_average](https://github.com/user-attachments/assets/f4a4a625-5d33-4cf3-8b72-79e1524e679b)
+
+- Нет alloca, store, load — переменные не кладутся в память, всё идёт через регистры.
+- fdiv double %x, 2.0 заменён на более быстрый fmul double %x, 0.5 — это умножение вместо деления, классическая оптимизация.
+
+
+
 
 
 
